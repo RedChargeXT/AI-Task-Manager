@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Task Manager</title>
+    <link rel="stylesheet" href="popup.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="title">
+                <h1>My Tasks</h1>
+                <span id="task-streak" title="Daily task completion streak">🔥 0</span>
+            </div>
+            <div class="header-controls">
+                 <button id="ai-suggest-btn" class="icon-btn" title="Suggest Tasks (AI)">
+                    <span class="material-icons-outlined">auto_awesome</span>
+                </button>
+                <button id="theme-toggle" class="icon-btn" title="Toggle Dark/Light Mode">
+                    <span class="material-icons-outlined">light_mode</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="filter-controls">
+            <input type="text" id="search-input" placeholder="Search tasks...">
+            <select id="filter-category">
+                <option value="all">All Categories</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Shopping">Shopping</option>
+            </select>
+        </div>
+
+        <ul id="task-list">
+            </ul>
+
+        <form id="add-task-form">
+            <input type="text" id="new-task-input" placeholder="Add a new task..." required>
+            <button type="submit" class="add-btn" title="Add Task">+</button>
+        </form>
+
+        <footer>
+            <div class="progress-container">
+                <p>Daily Progress</p>
+                <div class="progress-bar-bg">
+                    <div id="progress-bar" class="progress-bar-fg"></div>
+                </div>
+                <span id="progress-text">0%</span>
+            </div>
+            <div id="pomodoro-timer" class="pomodoro-container">
+                <span id="pomodoro-time">25:00</span>
+                <button id="pomodoro-start" class="pomo-btn" title="Start Timer">
+                    <span class="material-icons-outlined">play_arrow</span>
+                </button>
+                <button id="pomodoro-reset" class="pomo-btn" title="Reset Timer">
+                     <span class="material-icons-outlined">replay</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
