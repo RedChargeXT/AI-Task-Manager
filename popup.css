@@ -1,0 +1,362 @@
+/* --- Base & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #e0e5ec;
+    --text-color: #555;
+    --primary-color: #007aff;
+    --primary-text: #fff;
+    --card-bg: #e0e5ec;
+    --shadow-light: #ffffff;
+    --shadow-dark: #a3b1c6;
+    --icon-color: #999;
+    --border-color: #d1d9e6;
+    --progress-bar-bg: #d1d9e6;
+    --progress-bar-fg: linear-gradient(90deg, #6dd5ed, #2193b0);
+    --task-done-color: #888;
+}
+
+body.dark-mode {
+    --bg-color: #2c2f33;
+    --text-color: #e0e5ec;
+    --primary-color: #007aff;
+    --primary-text: #fff;
+    --card-bg: #2c2f33;
+    --shadow-light: #3a3e42;
+    --shadow-dark: #1e2023;
+    --icon-color: #b0b8c4;
+    --border-color: #3a3e42;
+    --progress-bar-bg: #3a3e42;
+    --progress-bar-fg: linear-gradient(90deg, #007aff, #00c6ff);
+    --task-done-color: #777;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    width: 380px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    padding: 16px;
+}
+
+/* --- Neumorphic Styles --- */
+.neumorphic {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    transition: all 0.3s ease-in-out;
+}
+
+.neumorphic-inset {
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+}
+
+/* --- Header --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#task-streak {
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.header-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    color: var(--icon-color);
+    position: relative;
+    top: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.icon-btn:hover {
+    color: var(--primary-color);
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.icon-btn:active {
+    box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
+    color: var(--primary-color);
+}
+
+
+/* --- Filter Controls --- */
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+#search-input, #filter-category {
+    flex-grow: 1;
+    border: none;
+    padding: 10px 14px;
+    font-size: 14px;
+    outline: none;
+    color: var(--text-color);
+    background-color: var(--card-bg);
+}
+
+#search-input::placeholder {
+    color: var(--icon-color);
+}
+
+#filter-category {
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
+    padding-right: 2em;
+}
+
+/* --- Task List --- */
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--shadow-dark) var(--bg-color);
+}
+
+#task-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#task-list::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+#task-list::-webkit-scrollbar-thumb {
+  background-color: var(--shadow-dark);
+  border-radius: 6px;
+}
+
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 12px;
+    cursor: grab;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid transparent;
+}
+
+.task-item.dragging {
+    opacity: 0.5;
+    background: var(--bg-color);
+    border: 1px dashed var(--primary-color);
+}
+
+.task-item:last-child {
+    margin-bottom: 0;
+}
+
+.task-item .checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+}
+.task-item .checkbox .material-icons-outlined {
+    font-size: 16px;
+    color: var(--primary-text);
+    transform: scale(0);
+    transition: transform 0.2s ease;
+}
+
+
+.task-item.completed .checkbox {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.task-item.completed .checkbox .material-icons-outlined {
+    transform: scale(1);
+}
+
+
+.task-item .task-text {
+    flex-grow: 1;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: var(--task-done-color);
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--icon-color);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.task-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    color: #ff3b30;
+}
+
+
+/* --- Add Task Form --- */
+#add-task-form {
+    display: flex;
+    margin-top: 16px;
+}
+
+#new-task-input {
+    flex-grow: 1;
+    border: none;
+    padding: 12px 16px;
+    font-size: 15px;
+    outline: none;
+    color: var(--text-color);
+}
+
+.add-btn {
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 28px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+}
+
+.add-btn:hover {
+     box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.add-btn:active {
+    box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
+}
+
+
+/* --- Footer --- */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.progress-container {
+    flex-grow: 1;
+}
+.progress-container p {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.progress-bar-bg {
+    height: 8px;
+    border-radius: 4px;
+    width: 100%;
+}
+.progress-bar-fg {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    background: var(--progress-bar-fg);
+    transition: width 0.5s ease-in-out;
+}
+
+#progress-text {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 4px;
+    display: block;
+}
+
+
+/* --- Pomodoro Timer --- */
+.pomodoro-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 20px;
+}
+
+#pomodoro-time {
+    font-size: 20px;
+    font-weight: 600;
+    width: 60px;
+    text-align: center;
+}
+
+.pomo-btn {
+    background: none;
+    border: none;
+    color: var(--icon-color);
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.pomo-btn:hover {
+    color: var(--primary-color);
+    background-color: var(--shadow-light);
+}
